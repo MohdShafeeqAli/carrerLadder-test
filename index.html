@@ -1,0 +1,781 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Ladder - Your Path to Success</title>
+    <style>
+        /* ============================================
+           UX IMPROVEMENTS SUMMARY:
+           - Enhanced typography and spacing throughout
+           - Improved form usability with larger touch targets
+           - Better visual hierarchy for career cards
+           - Added instruction text and disclaimer
+           - Enhanced readability with improved font sizes
+           - Better visual separation between elements
+           ============================================ */
+
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #1e40af;
+            --light-blue: #3b82f6;
+            --lighter-blue: #dbeafe;
+            --white: #ffffff;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: var(--white);
+            padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 3rem);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: clamp(0.75rem, 2vw, 1rem);
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem);
+            flex: 1;
+        }
+
+        /* UX IMPROVEMENT: Questionnaire Section - Enhanced spacing and clarity */
+        .questionnaire-section {
+            background: var(--white);
+            border-radius: clamp(0.5rem, 2vw, 1rem);
+            box-shadow: var(--shadow-lg);
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: clamp(2rem, 5vw, 3rem);
+        }
+
+        .questionnaire-section h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--dark-blue);
+            margin-bottom: clamp(1rem, 2.5vw, 1.25rem);
+            text-align: center;
+        }
+
+        /* UX IMPROVEMENT: Form instruction text for better user guidance */
+        .form-instruction {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            color: var(--text-gray);
+            text-align: center;
+            margin-bottom: clamp(1.5rem, 4vw, 2rem);
+            padding: clamp(0.75rem, 2vw, 1rem);
+            background-color: var(--lighter-blue);
+            border-radius: clamp(0.375rem, 1vw, 0.5rem);
+            line-height: 1.6;
+        }
+
+        /* UX IMPROVEMENT: Enhanced form group spacing for better readability */
+        .form-group {
+            margin-bottom: clamp(1.5rem, 3.5vw, 2rem);
+        }
+
+        /* UX IMPROVEMENT: Improved label styling for clarity */
+        .form-group label {
+            display: block;
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: clamp(0.75rem, 2vw, 1rem);
+            letter-spacing: 0.01em;
+        }
+
+        /* UX IMPROVEMENT: Enhanced input styling for better usability */
+        .form-group input[type="number"],
+        .form-group input[type="text"],
+        .form-group select {
+            width: 100%;
+            padding: clamp(0.875rem, 2.25vw, 1.125rem);
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            border: 2px solid var(--border-color);
+            border-radius: clamp(0.375rem, 1vw, 0.5rem);
+            background-color: var(--white);
+            color: var(--text-dark);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            min-height: 48px;
+            /* UX IMPROVEMENT: Increased touch target for better mobile usability */
+        }
+
+        .form-group input[type="number"]:focus,
+        .form-group input[type="text"]:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Radio and Checkbox Groups */
+        .option-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: clamp(0.75rem, 2vw, 1rem);
+            margin-top: clamp(0.5rem, 1.5vw, 0.75rem);
+        }
+
+        .option-item {
+            position: relative;
+        }
+
+        .option-item input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        /* UX IMPROVEMENT: Enhanced option labels for better clarity and usability */
+        .option-item label {
+            display: block;
+            padding: clamp(0.875rem, 2.25vw, 1.125rem);
+            background-color: var(--lighter-blue);
+            border: 2px solid var(--border-color);
+            border-radius: clamp(0.375rem, 1vw, 0.5rem);
+            text-align: center;
+            font-weight: 500;
+            font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 48px;
+            /* UX IMPROVEMENT: Increased touch target */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .option-item input[type="radio"]:checked+label {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue);
+        }
+
+        .option-item input[type="radio"]:hover+label {
+            border-color: var(--primary-blue);
+        }
+
+        /* Submit Button */
+        /* UX IMPROVEMENT: Enhanced submit button for better visibility and usability */
+        .submit-btn {
+            width: 100%;
+            padding: clamp(1rem, 2.75vw, 1.25rem);
+            font-size: clamp(1.05rem, 2.75vw, 1.2rem);
+            font-weight: 600;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            border: none;
+            border-radius: clamp(0.5rem, 1.5vw, 0.75rem);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            min-height: 52px;
+            /* UX IMPROVEMENT: Larger touch target */
+            margin-top: clamp(1.5rem, 3.5vw, 2rem);
+            letter-spacing: 0.02em;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+            margin-top: clamp(2rem, 5vw, 3rem);
+        }
+
+        .results-section.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* UX IMPROVEMENT: Enhanced results section heading with better spacing */
+        .results-section h2 {
+            font-size: clamp(1.75rem, 4.5vw, 2.25rem);
+            color: var(--dark-blue);
+            margin-bottom: clamp(1.5rem, 4vw, 2rem);
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        /* UX IMPROVEMENT: Disclaimer styling for transparency */
+        .disclaimer {
+            background-color: var(--lighter-blue);
+            border-left: 4px solid var(--primary-blue);
+            padding: clamp(1rem, 2.5vw, 1.25rem);
+            margin-bottom: clamp(1.5rem, 4vw, 2rem);
+            border-radius: clamp(0.375rem, 1vw, 0.5rem);
+            font-size: clamp(0.9rem, 2.25vw, 1rem);
+            color: var(--text-dark);
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .disclaimer strong {
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        /* UX IMPROVEMENT: Enhanced grid layout with better spacing for visual separation */
+        .career-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(1.5rem, 3.5vw, 2rem);
+            /* UX IMPROVEMENT: Increased gap for better card separation */
+        }
+
+        /* UX IMPROVEMENT: Enhanced career card styling with better visual separation */
+        .career-card {
+            background: var(--white);
+            border: 2px solid var(--border-color);
+            border-radius: clamp(0.5rem, 1.5vw, 0.75rem);
+            padding: clamp(1.5rem, 3.5vw, 2rem);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+        }
+
+        .career-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-blue);
+        }
+
+        /* UX IMPROVEMENT: Highlighted career titles for better readability */
+        .career-card h3 {
+            font-size: clamp(1.4rem, 3.5vw, 1.75rem);
+            color: var(--primary-blue);
+            margin-bottom: clamp(1rem, 2.5vw, 1.25rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            padding-bottom: clamp(0.75rem, 2vw, 1rem);
+            border-bottom: 2px solid var(--lighter-blue);
+        }
+
+        /* UX IMPROVEMENT: Improved text readability with better font sizes and spacing */
+        .career-card p {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            color: var(--text-gray);
+            line-height: 1.75;
+        }
+
+        .career-description {
+            margin-bottom: clamp(1.25rem, 3vw, 1.5rem);
+            font-size: clamp(1.05rem, 2.75vw, 1.15rem);
+        }
+
+        /* UX IMPROVEMENT: Enhanced skills section with better visual hierarchy */
+        .skills-section {
+            margin-top: clamp(1.25rem, 3vw, 1.5rem);
+            padding-top: clamp(1.25rem, 3vw, 1.5rem);
+            border-top: 2px solid var(--border-color);
+        }
+
+        .skills-label {
+            display: block;
+            font-size: clamp(0.95rem, 2.25vw, 1.05rem);
+            color: var(--text-dark);
+            margin-bottom: clamp(0.75rem, 2vw, 1rem);
+            font-weight: 600;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(0.5rem, 1.5vw, 0.75rem);
+        }
+
+        /* UX IMPROVEMENT: Enhanced skill tags for better visibility */
+        .skill-tag {
+            display: inline-block;
+            padding: clamp(0.5rem, 1.25vw, 0.625rem) clamp(0.875rem, 2.25vw, 1.125rem);
+            background-color: var(--lighter-blue);
+            color: var(--primary-blue);
+            border-radius: clamp(0.25rem, 0.75vw, 0.375rem);
+            font-size: clamp(0.85rem, 2.25vw, 0.95rem);
+            font-weight: 500;
+            margin-bottom: clamp(0.5rem, 1.25vw, 0.625rem);
+        }
+
+        /* UX IMPROVEMENT: Enhanced next step section with better spacing */
+        .next-step-section {
+            margin-top: clamp(1.25rem, 3vw, 1.5rem);
+            padding-top: clamp(1.25rem, 3vw, 1.5rem);
+            border-top: 2px solid var(--border-color);
+        }
+
+        .next-step-label {
+            display: block;
+            font-size: clamp(0.95rem, 2.25vw, 1.05rem);
+            color: var(--text-dark);
+            margin-bottom: clamp(0.75rem, 2vw, 1rem);
+            font-weight: 600;
+        }
+
+        .next-step-text {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            color: var(--primary-blue);
+            font-weight: 500;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* UX SUB-TASK: Responsive Mentorship Note */
+        .mentorship-note {
+            margin-top: clamp(2rem, 5vw, 3rem);
+            padding: clamp(1rem, 2.5vw, 1.5rem);
+            background-color: #f9fafb;
+            /* Light background */
+            color: var(--text-gray);
+            /* Muted text */
+            font-style: italic;
+            text-align: center;
+            border-radius: clamp(0.375rem, 1vw, 0.5rem);
+            border: 1px dashed var(--border-color);
+            font-size: clamp(0.9rem, 2.25vw, 1rem);
+            width: 100%;
+            /* No horizontal scrolling */
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            text-align: center;
+            padding: clamp(1.5rem, 4vw, 2rem);
+            margin-top: auto;
+        }
+
+        .footer p {
+            font-size: clamp(0.875rem, 2vw, 1rem);
+        }
+
+        /* Responsive adjustments for very small screens */
+        @media (max-width: 480px) {
+            .option-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ============================================
+           v0.5 CHAT INTERFACE STYLES - LAYOUT FIX
+           ============================================ */
+
+        /* Utility to hide legacy form but keep it accessible for JS */
+        .hidden-func {
+            display: none !important;
+        }
+
+        /* Fix Body for full viewport height */
+        body {
+            height: 100vh;
+            overflow: hidden;
+            /* Prevent body scroll */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Adjust Header to be compact */
+        .header {
+            flex-shrink: 0;
+            padding: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.5rem;
+                margin: 0;
+            }
+
+            .header p {
+                display: none;
+            }
+        }
+
+        /* Adjust Main Container to fill remaining space */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* Prevent container scroll */
+            padding: 0.5rem 1rem !important;
+            /* Minimal padding */
+            margin: 0 auto;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        /* Chat Container adjustment */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            /* Take all remaining space in container */
+            height: auto;
+            max-height: none;
+            background: #f3f4f6;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Chat History */
+        .chat-history {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            /* Scroll INSIDE chat history */
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            scroll-behavior: smooth;
+        }
+
+        /* Footer adjustment */
+        .footer {
+            flex-shrink: 0;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Chat Bubbles */
+        .chat-bubble {
+            max-width: 80%;
+            padding: 1rem 1.25rem;
+            border-radius: 1rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            animation: fadeIn 0.3s ease;
+            position: relative;
+        }
+
+        .chat-bubble.ai {
+            align-self: flex-start;
+            background-color: var(--white);
+            color: var(--text-dark);
+            border-bottom-left-radius: 0.25rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .chat-bubble.user {
+            align-self: flex-end;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border-bottom-right-radius: 0.25rem;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Chat Input Area */
+        .chat-input-area {
+            padding: 1rem;
+            background: var(--white);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        #chatInput {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 2rem;
+            /* Pill shape */
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        #chatInput:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .send-btn {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.875rem 1.75rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .send-btn:hover {
+            background-color: var(--dark-blue);
+        }
+
+        /* Guidance Card in Chat */
+        .guidance-card {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin-top: 0.5rem;
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+
+        .guidance-card h4 {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .confidence-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .conf-high {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .conf-med {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .conf-low {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+        /* Typing Indicator */
+        .typing {
+            font-style: italic;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            display: none;
+        }
+
+        /* Responsive Improvements */
+        @media (max-width: 600px) {
+            .chat-container {
+                height: calc(100vh - 160px);
+                border-radius: 0;
+            }
+
+            .chat-bubble {
+                max-width: 90%;
+            }
+
+            .container {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <h1>Career Ladder</h1>
+        <p>Discover your ideal career path with personalized guidance tailored to your interests, strengths, and
+            educational background. Take our quick questionnaire to unlock three career recommendations designed just
+            for you.</p>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- v0.5 Chat Interface (New Primary UX) -->
+        <section id="chat-interface" class="chat-container">
+            <div id="chat-history" class="chat-history">
+                <!-- Messages will be injected here -->
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+                <button id="sendBtn" class="send-btn">Send</button>
+            </div>
+        </section>
+
+        <!-- Questionnaire Section (Hidden but Functional) -->
+        <section class="questionnaire-section hidden-func" id="legacyFormSection">
+            <h2>Career Assessment Questionnaire</h2>
+            <!-- UX IMPROVEMENT: Added instruction text for better user guidance -->
+            <p class="form-instruction">Fill out the form to get career suggestions tailored for you.</p>
+            <form id="careerForm">
+                <!-- UX IMPROVEMENT: Clear label and helpful placeholder for age input -->
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" min="13" max="100" required placeholder="e.g., 16, 18, 20">
+                </div>
+
+                <div class="form-group">
+                    <label>Education Level</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="radio" id="edu10th" name="education" value="10th" required>
+                            <label for="edu10th">10th Grade</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="edu12th" name="education" value="12th" required>
+                            <label for="edu12th">12th Grade</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="eduUndergrad" name="education" value="Undergraduate" required>
+                            <label for="eduUndergrad">Undergraduate</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Interest Area</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="radio" id="interestScience" name="interest" value="Science" required>
+                            <label for="interestScience">Science</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="interestArts" name="interest" value="Arts" required>
+                            <label for="interestArts">Arts</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="interestCommerce" name="interest" value="Commerce" required>
+                            <label for="interestCommerce">Commerce</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="interestTechnology" name="interest" value="Technology" required>
+                            <label for="interestTechnology">Technology</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="interestOther" name="interest" value="Other" required>
+                            <label for="interestOther">Other / Not Listed</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label>Primary Strength</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="radio" id="strengthAnalytical" name="strength" value="Analytical" required>
+                            <label for="strengthAnalytical">Analytical</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="strengthCreative" name="strength" value="Creative" required>
+                            <label for="strengthCreative">Creative</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="strengthCommunication" name="strength" value="Communication"
+                                required>
+                            <label for="strengthCommunication">Communication</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="strengthPractical" name="strength" value="Practical" required>
+                            <label for="strengthPractical">Practical</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UX SUB-TASK: Specific Career Input -->
+                <div class="form-group">
+                    <label for="targetCareerInput">Have a specific career in mind? (Optional)</label>
+                    <input type="text" id="targetCareerInput" name="targetCareerInput"
+                        placeholder="e.g., Astronaut, Marine Biologist, Chef">
+                </div>
+
+
+                <button onclick="handleFormSubmit()">Find My Path</button>
+            </form>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection">
+            <h2>Your Career Recommendations</h2>
+            <!-- UX IMPROVEMENT: Added disclaimer for transparency and user awareness -->
+            <div class="disclaimer">
+                <strong>Note:</strong> This is guidance only. Make your final decision after research.
+            </div>
+            <div class="career-cards" id="careerCards">
+                <!-- Career cards will be dynamically inserted here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Career Ladder. Empowering students to reach their career goals.</p>
+    </footer>
+
+    <!-- External Scripts -->
+    <script src="config.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
